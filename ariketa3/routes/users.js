@@ -29,7 +29,6 @@ router.get('/list', function(req, res, next) {
 
 
 router.post("/new", (req, res) => {
-  users.push(req.body);
   db.bezeroak.insert(req.body, function (err, user) {
     if (err) {
       console.log(err)
@@ -42,8 +41,8 @@ router.post("/new", (req, res) => {
 });
 
 router.delete("/delete/:id", (req, res) => {
-  users = users.filter(user => user._id != req.params.id);
-  db.bezeroak.remove({_id: mongojs.ObjectId(req.params.id)}, function (err,user) {
+  users = users.filter(user => user.id != req.params.id);
+  db.bezeroak.remove({id: parseInt(req.params.id)}, function (err,user) {
     if (err) {
       console.log(err)
     }
@@ -59,7 +58,7 @@ router.put("/update/:id", (req, res) => {
   user.izena = req.body.izena;
   user.abizena = req.body.abizena;
   user.email = req.body.email;
-  db.bezeroak.update({_id: mongojs.ObjectId(req.params.id)}, {$set: {izena: req.body.izena, abizena: req.body.abizena, email:req.body.email}}, function (err,user) {
+  db.bezeroak.update({id: parseInt(req.params.id)}, {$set: {izena: req.body.izena, abizena: req.body.abizena, email:req.body.email}}, function (err,user) {
     if (err) {
       console.log(err)
     }

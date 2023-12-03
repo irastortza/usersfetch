@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); // handle the response data or action
+        console.log(data); // handle the response data or action //FETCH-en barnean INSERT ID MONGODB-k bueltatzen duena. 
       })
       .catch((error) => {
         console.error("Error:", error);
