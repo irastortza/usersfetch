@@ -24,11 +24,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/list', function(req, res, next) {
-  res.json(users)
-  });
+  db.bezeroak.find(function (err, user) {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      res.json(user)
+    }})})
 
 
 router.post("/new", (req, res) => {
+  console.log(req.body)
   db.bezeroak.insert(req.body, function (err, user) {
     if (err) {
       console.log(err)
@@ -54,10 +60,6 @@ router.delete("/delete/:id", (req, res) => {
 });
 
 router.put("/update/:id", (req, res) => {
-  let user = users.find(user => user.id == req.params.id);
-  user.izena = req.body.izena;
-  user.abizena = req.body.abizena;
-  user.email = req.body.email;
   db.bezeroak.update({id: parseInt(req.params.id)}, {$set: {izena: req.body.izena, abizena: req.body.abizena, email:req.body.email}}, function (err,user) {
     if (err) {
       console.log(err)
