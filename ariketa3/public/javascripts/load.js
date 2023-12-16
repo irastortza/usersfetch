@@ -23,7 +23,7 @@ let updateUser = (id) => {
     let fitxa = row.children[1].children[0].files[0]
     sendData('/users/profile',fitxa).then(fizena => {
       if (fizena == "null") fizena="default.png"
-      let url = "https://ubiquitous-space-spoon-v5g65g67pw7hxx99-3000.app.github.dev/users/uploads"
+      let url = "/users/uploads"
       console.log("A")
       console.log("AAAA" + url + "/" + fizena)
       let izena = row.children[2].children[0].value;
