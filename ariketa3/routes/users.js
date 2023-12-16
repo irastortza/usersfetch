@@ -1,9 +1,24 @@
 var express = require('express');
 var router = express.Router();
+router.use(express.static('public'));
+router.use(express.urlencoded({ extended: true }));
 
 const mongojs = require('mongojs')
 const db = mongojs('bezeroakdb',['bezeroak'])
 
+const multer  = require('multer')
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/uploads')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.originalname.split(".")[0] + '-' + uniqueSuffix + "." + file.mimetype.split("/")[1])
+    }
+  })
+
+const upload = multer({'storage': storage })
 let users = [];
 
 db.bezeroak.find(function (err,userdocs) {
@@ -60,7 +75,7 @@ router.delete("/delete/:id", (req, res) => {
 });
 
 router.put("/update/:id", (req, res) => {
-  db.bezeroak.update({id: parseInt(req.params.id)}, {$set: {izena: req.body.izena, abizena: req.body.abizena, email:req.body.email}}, function (err,user) {
+  db.bezeroak.update({id: parseInt(req.params.id)}, {$set: {izena: req.body.izena, irudia: req.body.irudia, abizena: req.body.abizena, email:req.body.email}}, function (err,user) {
     if (err) {
       console.log(err)
     }
@@ -69,6 +84,15 @@ router.put("/update/:id", (req, res) => {
     }
   })
   res.json(users);
+})
+
+router.post('/profile', upload.single('avatar'), function (req, res, next) {
+  try {
+    res.send(req.file.filename)
+  }
+  catch (TypeError) {
+    res.send("null")
+  }
 })
 
 module.exports = router;

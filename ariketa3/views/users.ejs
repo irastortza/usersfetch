@@ -10,6 +10,7 @@
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">Image</th>
           <th scope="col">First</th>
           <th scope="col">Last</th>
           <th scope="col">Email</th>
@@ -20,10 +21,11 @@
 
       </tbody>
     </table>
-    <form action="/users/new" method="post" id="formularioa">
+    <form name="formularioa" action="/users/new" method="post" enctype="multipart/form-data" id="formularioa">
       <input type="text" name="izena" placeholder="Izena" />
       <input type="text" name="abizena" placeholder="Abizena" />
       <input type="text" name="email" placeholder="Email" />
+      <input type="file" name="avatar" />
       <input type="hidden" name="id" />
       <input type="submit" value="Gehitu" />
     </form>
