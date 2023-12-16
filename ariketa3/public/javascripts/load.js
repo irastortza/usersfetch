@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     sendData('/users/profile',null).then(izena => {
-      let url = "https://ubiquitous-space-spoon-v5g65g67pw7hxx99-3000.app.github.dev/users"
+      let url = "/users"
       if (izena == "null") {
         izena="default.png"
       }
